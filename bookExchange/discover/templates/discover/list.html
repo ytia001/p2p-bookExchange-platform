@@ -1,0 +1,31 @@
+{% extends 'discover/navbar.html' %}
+
+{% block content %}
+
+{% comment %} git clone git@github.com:ytia001/discover-webpage-django.git {% endcomment %}
+<div class="container">
+  <div class="row row-cols-6">
+    {% if posts %}
+      {% for post in posts %}
+      <div class="col mb-2">
+        <div class="rounded-3" style="height:250px; width:100%; overflow:hidden;">
+          <a href="{% url 'discover:detail' post.id %}">
+          <img class="image-on-hover" src = "{{post.image.first.image_url}}" style="height:100%; width:100%; object-fit:contain;" alt="Post Image" >
+          </a>
+        </div>
+        <p style="font-family: roboto; text-align: center; margin-top:5px;">
+          {{post.title}} 
+          <br> 
+          {{post.owner.username}}
+        </p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="container text-center alert alert-info" role="alert">
+        EMPTY!!!
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

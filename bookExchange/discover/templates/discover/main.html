@@ -1,0 +1,24 @@
+{% extends 'discover/navbar.html' %}
+{% block content %}
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-8 p-lg-5 mx-auto my-5">
+      <h1 class="display-4 fw-bold">About This Platform</h1>
+      <p class="lead fw-normal">
+          Looking to declutter your bookshelf? This platform offers you the perfect solution by allowing you to list the books you no longer need. Whether you've outgrown them or simply want to share the joy of reading, this platform enables you to connect with fellow book enthusiasts interested in exchanging titles.
+          <br><br>
+          Browse our main page to discover a diverse array of books that others are ready to part with. If something catches your eye, simply send a request to initiate a trade! We've streamlined the process, ensuring that exchanging books is as effortless as clicking a button.
+          <br><br>
+          Rest assured, our platform is committed to facilitating seamless book exchanges, connecting your books with appreciative new owners. Best of all, there are no fees involved in any transaction, so you can enjoy browsing and trading hassle-free! Happy reading!
+      </p>
+      <a class="btn btn-outline-secondary" href="{% url 'discover:all' %}">Discover Books</a>
+  </div>
+  <div class="product-device shadow-sm d-none d-md-block"></div>
+  <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+
+  <div style="padding-bottom:100px;"></div>
+
+{% endblock%}
+

@@ -1,0 +1,25 @@
+{% extends 'discover/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Create account
+{% endblock%}
+
+{% block content%}
+<style>
+  body{
+    margin-top: 40px;
+    height: 1000px;
+    background-color: rgb(63,153,156,0.7);
+  }
+</style>
+
+<div class='container border rounded-5 p-4 position-relative z-index-1' style="width:550px; background-color:#f5f3f2;">
+  <p class='text-middle text-center fs-4 mb-5'>Create account</p>
+  <form method="post" action={% url 'discover:register' %}>
+    {% csrf_token%}
+    {{ form | crispy}}  
+    <input class="btn btn-primary mt-5 w-100" type="submit" value="Register">
+  </form>
+</div>
+{% endblock%}

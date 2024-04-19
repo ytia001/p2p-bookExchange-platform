@@ -1,0 +1,86 @@
+{% extends 'discover/navbar.html' %}
+{% block content %}
+{% comment %} If the image is overflowing, it may be due to its original size being larger than the container.  {% endcomment %}
+  
+  <div class="container" style="width: 1400px; height: 800px;">
+    <div class="row h-100">
+      <div class="row text-center fs-1 d-flex align-items-center" style="height:80px;">
+        <p class="mb-0 text-decoration-underline" style="font-family:Roboto;">{{post.title}}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          {% if post.image.all.count > 1%}
+            <div id="carouselContol" class="carousel carousel-dark slide">
+
+              <div class="carousel-indicators">
+                {% for image in post.image.all %}
+                  <button type="button" data-bs-target="#carouselContol" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.counter == 1 %} class="active" aria-current="true" {%endif%} aria-label="Slide {{ forloop.counter0 }}">
+                  </button>
+                {% endfor %}
+              </div>
+            
+              <div class="carousel-inner">
+                {% for image in post.image.all%}
+                  <div class="carousel-item {% if forloop.counter == 1 %} active {% endif%}">
+                    <img class="d-block w-100" src="{{image.image_url}}" alt="{{image.image_url}}">
+                  </div>
+                {% endfor %}
+              </div>
+
+              <a class="carousel-control-prev" data-bs-target="#carouselContol" type="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a class="carousel-control-next" data-bs-target="#carouselContol" type="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true" ></span>
+                <span class="visually-hidden" >Next</span>
+              </a>
+
+            </div>
+
+          {% else %}
+            <div class="d-flex justify-content-center">
+              <img class="img-fluid" style="max-width: 100%; height: auto;" src="{{post.image.first.image_url}}">
+            </div> 
+          {% endif%}
+          <div class="text-center">
+            <p class="fs-5" style="font-family:arial; margin-top: 100px;"> Posted by {{post.owner.username}} on {{post.created_at}}</p>
+          </div>
+        </div>
+        <div class="col-md-6 fs-4" style="font-family:Roboto">
+          {% if post.description %}
+          <h2 style="text-align:center; text-decoration:underline">Summary</h2>
+          <div class="text-break">
+            {{post.description | linebreaks}}
+          </div>
+          {% endif %}
+          <div>Author: {{post.author}}</div>
+          {% if post.publisher %}
+          <div>Publisher: {{post.publisher}}</div>
+          {% endif %}
+          <div> Duration of Book Ownership: {{post.years}} year(s) </div>
+  
+          {% if post.owner.id == user.id%}
+          <div class="btn-group" role="group">
+            <a class="btn btn-outline-info" href="{% url 'discover:deleteForm' post.id %}">Remove </a>
+            <a class="btn btn-outline-info" href="{% url 'discover:editForm' post.id %}">Edit </a>
+          </div>
+          {%endif%}
+          
+          {% if post.owner.id != user.id%}
+            <div >
+              <a class="btn btn-outline-info" href="{% url 'discover:tradeForm' post.id %}">
+                Request Trade 
+              </a>
+            </div>
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding-bottom:100px;"></div>
+
+{% endblock%}
+

@@ -1,0 +1,85 @@
+{% extends 'discover/base.html'%}
+
+{% block NAVBAR%}
+<body style="padding-top:70px;">
+     
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color:rgb(33,123,126,0.85); font-size:16px;"> 
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="{% url 'discover:all' %}" style="font-size:16px; margin-left: 5px;">Home
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarItems"
+      aria-controls="navbarItems" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarItems">
+        <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+          <li class="nav-item ms-1">
+            <a class="nav-link text-white btn btn-custom rounded-5" href="#">Search</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-white btn btn-custom rounded-5" href = {% url 'discover:submitForm' %}>
+              List a Book
+            </a>
+          </li>
+          <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle text-white btn btn-custom rounded-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Info
+            </a>
+            <ul class="dropdown-menu "  style="cursor:pointer">
+              <li class="dropdown-item"> 
+                <a href="{% url 'discover:main' %}" style="color:black; text-decoration:none;">About</a> 
+              </li>
+              <li class="dropdown-item"> 
+                <a href="{% url 'discover:contact' %}" style="color:black; text-decoration:none;">Contact</a> 
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {%if user.is_authenticated%}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white btn btn-custom rounded-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end"  style="cursor:pointer">
+                {% if user.is_authenticated %}
+                  <li class="dropdown-item fw-bold" href="#"> {{user.username}} </li>
+                  <hr class="my-0">
+                {% endif %}
+                <li class="dropdown-item"> 
+                  <a style="text-decoration:none; color:black;"href= {% url 'discover:myListing' user.id%}>
+                    My Listings
+                  </a> 
+                </li>
+                
+                <li class="dropdown-item"> 
+                  <a style="text-decoration:none; color:black;"href= {% url 'discover:myRequests'%}>
+                    Trade Requests
+                  </a> 
+                </li>
+
+                <li class="dropdown-item"> 
+                  <a style="text-decoration:none; color:black;"href= {% url 'discover:rewards'%}>
+                    My Rewards
+                  </a> 
+                </li>
+                <form method="POST" action="{% url 'logout' %}" >
+                  {%csrf_token%}
+                  <input type="submit" class="dropdown-item" value="Logout">
+                  <input type="hidden" name="next" value={% url 'discover:all' %}>
+                <form/>
+              </ul>
+            </li>
+          {%else%}
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-custom rounded-5" href="{% url 'login'%}?next={% url 'discover:all' %}">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-custom rounded-5" href="{% url 'discover:register'%}">Sign Up</a>
+            </li>
+          {%endif%}
+        </ul>
+      </div>
+    </div>
+  </nav>
+{%endblock%}
