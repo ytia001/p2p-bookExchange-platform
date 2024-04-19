@@ -92,14 +92,16 @@ In addition to refining existing features, future development should focus on in
 
 To run the Web Application 
 
-1. Clone or pull the latest version of the web application from the GitHub repository.
+1. Clone or pull the latest version of the web application from the GitHub repository on desktop.
 2. Ensure the virtual environment and dependencies are present, else install dependencies through requirements.txt 
  - pip install -r requirements.txt
 3. Activate the virtual environment if it's not already activated.
-4. Apply Migrations: Ensure that the web application's database is up to date by applying migrations. Run the  following commands:
+4. Go into the bookExchange folder directory, and make sure that the **manage.py** file is within it
+5. Apply Migrations: Ensure that the web application's database is up to date by applying migrations. Run the  following commands:
  - python manage.py makemigrations
  - python manage.py migrate
-5. Verify if there are any issues or errors in the web application by running:
+6. Verify if there are any issues or errors in the web application by running:
  - python manage.py check
-6. Start the development server by executing the following command:
+7. Start the development server by executing the following command:
  - python manage.py runserver
+8. Go to http://127.0.0.1:8000/discover/ , ensure */discover* is added as the end
